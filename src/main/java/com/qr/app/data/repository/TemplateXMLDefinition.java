@@ -38,6 +38,9 @@ public class TemplateXMLDefinition {
         try {
 
             InputStream inputStream = getClass().getClassLoader().getResourceAsStream("templates.xml");
+            if(inputStream == null){
+                throw new RuntimeException("templates.xml not found");
+            }
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
 
@@ -67,6 +70,8 @@ public class TemplateXMLDefinition {
 
                     fields.add(field);
                 }
+
+                template.setFieldList(fields);
 
                 templates.add(template);
             }
