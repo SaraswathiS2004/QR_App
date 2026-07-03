@@ -1,17 +1,30 @@
 package com.qr.app.data.repository;
 
+import com.qr.app.data.dto.Field;
 import com.qr.app.data.dto.Template;
+import org.w3c.dom.NodeList;
 
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
+
+import org.w3c.dom.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 public class TemplateXMLDefinition {
 
     private static TemplateXMLDefinition templateXMLDefinition = null;
 
-    public ArrayList<Template> templates;
+    private List<Template> templates = new ArrayList<>();
 
     private TemplateXMLDefinition(){
         templateXMLDefinition = new TemplateXMLDefinition();
+        parseTemplateXML();
     }
 
     public static synchronized TemplateXMLDefinition getInstance(){
@@ -21,11 +34,54 @@ public class TemplateXMLDefinition {
         return templateXMLDefinition;
     }
 
+    private void parseTemplateXML(){
+        try {
+
+            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("templates.xml");
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+
+            Document document = builder.parse(inputStream);
+
+            NodeList templateNodes = document.getElementsByTagName("template");
+
+            for (int i = 0; i < templateNodes.getLength(); i++) {
+
+                Element templateElement = (Element) templateNodes.item(i);
+
+                Template template = new Template();
+                template.setTemplateName(templateElement.getAttribute("name"));
+                template.setPath(templateElement.getAttribute("path"));
+
+                List<Field> fields = new ArrayList<>();
+                NodeList fieldNodes = templateElement.getElementsByTagName("field");
+
+                for (int j = 0; j < fieldNodes.getLength(); j++) {
+
+                    Element fieldElement = (Element) fieldNodes.item(j);
+
+                    Field field = new Field();
+                    field.setName(fieldElement.getAttribute("name"));
+                    field.setType(fieldElement.getAttribute("type"));
+                    field.setLabel(fieldElement.getAttribute("label"));
+
+                    fields.add(field);
+                }
+
+                templates.add(template);
+            }
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
+
+    }
+
     public void addTemplate(Template template){
         this.templates.add(template);
     }
 
-    public ArrayList<Template> getTemplates(){
+    public List<Template> getTemplates(){
         return templates;
     }
 
