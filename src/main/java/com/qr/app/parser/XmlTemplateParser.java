@@ -21,7 +21,7 @@ public class XmlTemplateParser {
                 throw new RuntimeException("templates.xml not found");
             }
 
-           File file = new File("src/main/resources/templates.xml");
+            File file = new File("src/main/resources/templates.xml");
 
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
