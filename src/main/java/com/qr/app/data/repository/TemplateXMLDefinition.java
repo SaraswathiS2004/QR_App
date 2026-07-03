@@ -23,7 +23,6 @@ public class TemplateXMLDefinition {
     private List<Template> templates = new ArrayList<>();
 
     private TemplateXMLDefinition(){
-        templateXMLDefinition = new TemplateXMLDefinition();
         parseTemplateXML();
     }
 

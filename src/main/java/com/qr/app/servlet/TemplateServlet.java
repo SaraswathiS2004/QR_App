@@ -1,5 +1,8 @@
 package com.qr.app.servlet;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.qr.app.data.dto.Template;
+import com.qr.app.data.repository.TemplateXMLDefinition;
 import com.qr.app.parser.XmlTemplateParser;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -11,29 +14,24 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+
 @WebServlet("/template")
 public class TemplateServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request , HttpServletResponse response) throws ServletException , IOException {
         try{
-            BufferedReader reader = request.getReader();
-            StringBuilder json = new StringBuilder();
-            String line;
-            while((line = reader.readLine()) != null){
-                json.append(line);
-            }
-            JSONObject obj = new JSONObject(json.toString());
-            String type = obj.getString("Template");
-            String templateName = obj.getString("name");
+            TemplateXMLDefinition templateXMLDefinition = TemplateXMLDefinition.getInstance();
 
-            XmlTemplateParser xmlTemplateParser = new XmlTemplateParser();
-            JSONObject result = xmlTemplateParser.parse(templateName);
+            List<Template> templates = templateXMLDefinition.getTemplates();
 
-            String convertString= result.toString();
+            ObjectMapper mapper = new ObjectMapper();
+
+            String json = mapper.writeValueAsString(templates);
 
             PrintWriter output = response.getWriter();
-            output.println(convertString);
+            output.println(json);
             output.close();
 
         }
