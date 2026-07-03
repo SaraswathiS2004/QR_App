@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <template name ="template1" path="/template1.html">
+        <field name = "image" type = "image" label="avatar" />
+        <field name = "initial" type = "text" label="R heart S" />
+        <field name = "sentence" type = "text" label="WITH JOY , WE INVITE YOU TO" />
+        <field name = "date" type="text" label="Sunday, 13 September 2026" />
+        <field name = "countdays" type ="button" label="72 DAYS TO GO" />
+        <field name = "eventName" type = "text" label="Wedding Venues" />
+        <field name = "temple" type = "text" label= "TEMPLE" />
+        <field name = "templeName" type = "text" label= "Nellaiappar Temple" />
+        <field name = "templeTime" type = "text" label= "8.00AM - 9.00AM" />
+        <field name = "templePlace" type = "text" label= "Town, Tirunelveli" />
+        <field name = "marriageHall" type = "text" label="MARRIAGE HALL" />
+        <field name = "marriageHallName" type = "text" label = "M.S. Mahal" />
+        <field name = "marriageHallTime" type ="text" label= "10.00AM - 3.00PM" />
+        <field name = "marriageHallPlace" type = "text" label = "Kodeeswaran Nagar, Pettai Road, Tirunelveli" />
+    </template>
+</templates>
