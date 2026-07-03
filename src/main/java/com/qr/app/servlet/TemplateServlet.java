@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet("/template/*")
+@WebServlet("/templates/*")
 public class TemplateServlet extends HttpServlet {
 
     @Override
@@ -53,6 +53,7 @@ public class TemplateServlet extends HttpServlet {
     }
 
     private String getTemplateId(HttpServletRequest request){
+
         String pathInfo = request.getPathInfo();
 
         if(pathInfo == null || pathInfo.equals("/")){
@@ -60,7 +61,7 @@ public class TemplateServlet extends HttpServlet {
         }
         else {
             String [] paths = pathInfo.split("/");
-            if(paths.length >= 2){
+            if(paths.length >= 2 && paths[2].equals("fields")){
                 return paths[1];
             }
         }
