@@ -4,21 +4,21 @@ import com.qr.app.data.dto.Template;
 
 import java.util.ArrayList;
 
-public class QRDb {
+public class TemplateXMLDefinition {
 
-    private static QRDb qrDb = null;
+    private static TemplateXMLDefinition templateXMLDefinition = null;
 
     public ArrayList<Template> templates;
 
-    private QRDb(){
-        qrDb = new QRDb();
+    private TemplateXMLDefinition(){
+        templateXMLDefinition = new TemplateXMLDefinition();
     }
 
-    public static synchronized QRDb getInstance(){
-        if(qrDb == null){
-            qrDb = new QRDb();
+    public static synchronized TemplateXMLDefinition getInstance(){
+        if(templateXMLDefinition == null){
+            templateXMLDefinition = new TemplateXMLDefinition();
         }
-        return qrDb;
+        return templateXMLDefinition;
     }
 
     public void addTemplate(Template template){
