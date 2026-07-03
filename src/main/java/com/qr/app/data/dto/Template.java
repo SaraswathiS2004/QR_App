@@ -5,6 +5,7 @@ import java.util.List;
 public class Template {
     private String templateName;
     private String path;
+    private String id;
     private List<Field> fieldList;
 
     public void setTemplateName(String templateName){
@@ -29,5 +30,13 @@ public class Template {
 
     public void setFieldList(List<Field> fieldList) {
         this.fieldList = fieldList;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

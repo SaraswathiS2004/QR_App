@@ -54,7 +54,7 @@ public class TemplateXMLDefinition {
                 Template template = new Template();
                 template.setTemplateName(templateElement.getAttribute("name"));
                 template.setPath(templateElement.getAttribute("path"));
-
+                template.setId((templateElement.getAttribute("id")));
                 List<Field> fields = new ArrayList<>();
                 NodeList fieldNodes = templateElement.getElementsByTagName("field");
 
@@ -66,7 +66,6 @@ public class TemplateXMLDefinition {
                     field.setName(fieldElement.getAttribute("name"));
                     field.setType(fieldElement.getAttribute("type"));
                     field.setLabel(fieldElement.getAttribute("label"));
-
                     fields.add(field);
                 }
 

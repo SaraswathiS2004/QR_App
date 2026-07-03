@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet("/template")
+@WebServlet("/template/*")
 public class TemplateServlet extends HttpServlet {
 
     @Override
@@ -26,9 +26,21 @@ public class TemplateServlet extends HttpServlet {
 
             List<Template> templates = templateXMLDefinition.getTemplates();
 
+            String id = getTemplateId(request);
+            String json = null;
             ObjectMapper mapper = new ObjectMapper();
 
-            String json = mapper.writeValueAsString(templates);
+            if(id == null){
+                json = mapper.writeValueAsString(templates);
+            }
+            else {
+                for(Template template : templates){
+                    if(template.getId().equals(id)){
+                        json = mapper.writeValueAsString(template);
+                        break;
+                    }
+                }
+            }
 
             PrintWriter output = response.getWriter();
             output.println(json);
@@ -38,6 +50,20 @@ public class TemplateServlet extends HttpServlet {
         catch (Exception e){
             System.out.println(e);
         }
+    }
 
+    private String getTemplateId(HttpServletRequest request){
+        String pathInfo = request.getPathInfo();
+
+        if(pathInfo == null || pathInfo.equals("/")){
+            return null;
+        }
+        else {
+            String [] paths = pathInfo.split("/");
+            if(paths.length >= 2){
+                return paths[1];
+            }
+        }
+        return null;
     }
 }
