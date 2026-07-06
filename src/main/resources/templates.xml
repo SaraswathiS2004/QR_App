@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates>
     <template name ="template1" path="/template1.html" id = "1">
-        <field name = "image" type = "image" label="avatar" />
-        <field name = "initial" type = "text" label="R heart S" />
+        <field name = "image" type = "image" label="Couple Image" />
+        <field name = "groom_name" type = "text" label="Groom Name" placeholder="John" default="John"/>
         <field name = "sentence" type = "text" label="WITH JOY , WE INVITE YOU TO" />
         <field name = "date" type="text" label="Sunday, 13 September 2026" />
-        <field name = "countdays" type ="button" label="72 DAYS TO GO" />
+        <field name = "countdown" type ="button" label="72 DAYS TO GO" />
         <field name = "eventName" type = "text" label="Wedding Venues" />
         <field name = "temple" type = "text" label= "TEMPLE" />
         <field name = "templeName" type = "text" label= "Nellaiappar Temple" />
@@ -21,7 +21,7 @@
         <field name = "initial" type = "text" label="R heart S" />
         <field name = "sentence" type = "text" label="WITH JOY , WE INVITE YOU TO" />
         <field name = "date" type="text" label="Sunday, 13 September 2026" />
-        <field name = "countdays" type ="button" label="72 DAYS TO GO" />
+        <field name = "countdown" type ="button" label="72 DAYS TO GO" />
         <field name = "eventName" type = "text" label="Wedding Venues" />
         <field name = "temple" type = "text" label= "TEMPLE" />
         <field name = "templeName" type = "text" label= "Nellaiappar Temple" />
