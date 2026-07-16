@@ -32,6 +32,7 @@ public class TemplateServlet extends HttpServlet {
 
             if(id == null){
                 json = mapper.writeValueAsString(templates);
+
             }
             else {
                 for(Template template : templates){

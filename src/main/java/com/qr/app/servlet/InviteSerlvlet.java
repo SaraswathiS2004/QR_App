@@ -32,17 +32,6 @@ public class InviteSerlvlet extends HttpServlet{
             String templateId = input.getString("id");
             JSONObject object = input.getJSONObject("fields");
 
-//            InviteRequest inviteRequest = new InviteRequest();
-//            inviteRequest.setTemplateId(templateId);
-//
-//            Map<String , String> fields = new HashMap<>();
-//
-//            for(String key : object.keySet()) {
-//                String value = object.getString(key);
-//                fields.put(key , value);
-//            }
-//            inviteRequest.setFields(fields);
-
             String html = null;
             InputStream inputStream = getClass().getClassLoader().getResourceAsStream("/templates/template"+templateId+"/index.html");
             if(inputStream == null){

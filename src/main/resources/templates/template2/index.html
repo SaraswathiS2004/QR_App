@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wedding Venues</title>
+    <meta name="description" content="Ceremony and reception venues with map links." />
+
+    <style>
+        :root {
+          /* ===== EASY TO EDIT ===== */
+          /* 1) Replace this URL with your couple's photo (local file e.g. "couple.jpg" or a web link). */
+          --couple-photo: url("couple.jpg");
+
+          /* 2) Colours — a blush & rose-gold romance */
+          --ink:        #4a3b3f;   /* main text   */
+          --muted:      #95797f;   /* soft text   */
+          --rose:       #cf8a93;   /* accent      */
+          --rose-deep:  #b1606c;   /* button base */
+          --rose-glow:  #d99aa2;   /* button tint */
+          --card:       #fffafb;
+          --line:       rgba(207, 138, 147, 0.30);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { -webkit-text-size-adjust: 100%; }
+
+        body {
+          min-height: 100vh;
+          min-height: 100dvh;
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+          color: var(--ink);
+          line-height: 1.5;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: clamp(14px, 4vw, 44px);
+          background:
+            radial-gradient(120% 80% at 50% 0%, #fdeef1 0%, #faf2ee 55%, #f6ece9 100%);
+        }
+
+        .card {
+          width: 100%;
+          max-width: 880px;
+          background: var(--card);
+          border: 1px solid var(--line);
+          border-radius: 22px;
+          box-shadow: 0 22px 60px rgba(177, 96, 108, 0.16);
+          padding: clamp(20px, 4vw, 34px);
+          text-align: center;
+          animation: rise 0.7s ease both;
+        }
+
+        /* Couple photo — proportions match the artwork so nothing is cropped. */
+        .hero {
+          width: 100%;
+          max-width: 420px;
+          aspect-ratio: 1023 / 1537;
+          overflow: hidden;
+          border-radius: 90px 90px 18px 18px;
+          border: 1px solid var(--line);
+          margin: 0 auto clamp(20px, 4vw, 28px);
+          background: #f3e2e4;
+        }
+        .hero img {
+          width: 100%; height: 100%;
+          object-fit: contain;
+          display: block;
+        }
+
+        .monogram {
+          font-family: Georgia, "Times New Roman", serif;
+          font-style: italic;
+          font-size: clamp(28px, 6vw, 40px);
+          color: var(--rose);
+          line-height: 1;
+          margin-bottom: 12px;
+        }
+
+        .eyebrow {
+          letter-spacing: 0.36em;
+          text-transform: uppercase;
+          font-size: clamp(10px, 2.4vw, 11.5px);
+          color: var(--muted);
+          padding-left: 0.36em;
+          margin-bottom: 10px;
+        }
+
+        h1 {
+          font-family: Georgia, "Times New Roman", serif;
+          font-weight: 600;
+          font-size: clamp(40px, 11vw, 76px);
+          line-height: 0.98;
+          color: var(--ink);
+        }
+
+        /* Marriage date */
+        .wed-date {
+          font-family: Georgia, "Times New Roman", serif;
+          font-size: clamp(22px, 5vw, 30px);
+          color: var(--ink);
+          margin-top: clamp(8px, 2vw, 12px);
+          letter-spacing: 0.01em;
+        }
+
+        /* Countdown pill */
+        .countdown {
+          display: inline-block;
+          margin: clamp(12px, 2.6vw, 16px) 0 clamp(18px, 3.2vw, 24px);
+          padding: 9px 22px;
+          border-radius: 100px;
+          background: linear-gradient(135deg, var(--rose-glow), var(--rose-deep));
+          color: #fff;
+          font-weight: 600;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+          font-size: clamp(12px, 3vw, 14px);
+          box-shadow: 0 6px 16px rgba(177, 96, 108, 0.30);
+        }
+        .countdown:empty { display: none; }
+        .countdown.is-today {
+          text-transform: none;
+          letter-spacing: 0.04em;
+          font-size: clamp(14px, 3.6vw, 17px);
+        }
+
+        .divider {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 12px;
+          margin: clamp(18px, 4vw, 30px) auto clamp(24px, 4vw, 36px);
+          color: var(--rose);
+        }
+        .divider::before, .divider::after {
+          content: "";
+          height: 1px;
+          width: clamp(40px, 14vw, 100px);
+          background: linear-gradient(90deg, transparent, var(--rose));
+        }
+        .divider::after { transform: scaleX(-1); }
+        .divider span { font-size: 13px; }
+
+        .venues {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: clamp(16px, 3vw, 26px);
+          text-align: left;
+        }
+
+        .venue {
+          padding: clamp(20px, 3.5vw, 28px);
+          border: 1px solid var(--line);
+          border-radius: 16px;
+          background: linear-gradient(180deg, #fffdfd 0%, #fdf4f5 100%);
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .venue__order {
+          letter-spacing: 0.26em;
+          text-transform: uppercase;
+          font-size: 11px;
+          color: var(--rose-deep);
+          font-weight: 600;
+        }
+
+        .venue__name {
+          font-family: Georgia, "Times New Roman", serif;
+          font-weight: 600;
+          font-size: clamp(24px, 5vw, 31px);
+          line-height: 1.1;
+        }
+
+        .venue__note {
+          font-family: Georgia, "Times New Roman", serif;
+          font-style: italic;
+          font-size: clamp(16px, 3.4vw, 19px);
+          color: var(--rose-deep);
+        }
+
+        .venue__address {
+          font-size: clamp(13px, 3vw, 14.5px);
+          color: var(--muted);
+          line-height: 1.55;
+        }
+
+        /* Prominent map link — soft rose-gold pill, full width, high contrast. */
+        .venue__map {
+          margin-top: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          font-weight: 600;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          font-size: 13px;
+          color: #fff;
+          background: linear-gradient(135deg, var(--rose-glow), var(--rose-deep));
+          padding: 15px 18px;
+          text-decoration: none;
+          border-radius: 100px;
+          box-shadow: 0 8px 20px rgba(177, 96, 108, 0.34);
+          transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+        }
+        .venue__map:hover, .venue__map:focus-visible {
+          transform: translateY(-2px);
+          filter: brightness(1.05);
+          box-shadow: 0 12px 26px rgba(177, 96, 108, 0.42);
+        }
+        .venue__map svg { width: 17px; height: 17px; flex: none; }
+        .venue__map:focus-visible { outline: 3px solid var(--rose); outline-offset: 3px; }
+
+        .footer {
+          margin-top: clamp(24px, 4vw, 36px);
+          font-family: Georgia, "Times New Roman", serif;
+          font-style: italic;
+          font-size: clamp(15px, 3.4vw, 18px);
+          color: var(--muted);
+        }
+
+        @keyframes rise {
+          from { opacity: 0; transform: translateY(14px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 620px) {
+          .venues { grid-template-columns: 1fr; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .card { animation: none; }
+          .venue__map { transition: none; }
+        }
+    </style>
+</head>
+<body>
+<main class="card">
+    <figure class="hero">
+        <!-- Swap src for your couple's photo. width/height keep the layout stable while it loads. -->
+        <img src="{{image}}"
+             alt="The couple" width="1023" height="1537" fetchpriority="high" />
+    </figure>
+
+    <div class="monogram">{{initial}}</div>
+    <p class="sentence">{{sentence}}</p>
+    <p class="wed-date">{{date}}</p>
+
+    <!-- Live countdown to the wedding day -->
+    <p class="countdown" id="countdown" aria-live="polite"></p>
+
+    <h1>Wedding Venues</h1>
+
+    <div class="divider"><span>&#10084;</span></div>
+
+    <section class="venues">
+        <!-- ===== VENUE 1 ===== -->
+        <article class="venue">
+            <span class="venue__order">{{temple}}</span>
+            <h2 class="venue__name">{{templeName}}</h2>
+            <p class="venue__note">{{templeTime}}</p>
+            <p class="venue__address">{{templePlace}}</p>
+            <!-- Replace href with your Google Maps link -->
+            <a class="venue__map" href="https://maps.app.goo.gl/n8LjLeT3NJDmDNF1A" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>
+                Open in Google Maps
+            </a>
+        </article>
+
+        <!--         ===== VENUE 2 ===== -->
+        <article class="venue">
+            <span class="venue__order">{{marriageHall}}</span>
+            <h2 class="venue__name">{{marriageHallName}}</h2>
+            <p class="venue__note">{{marriageHallTime}}</p>
+            <p class="venue__address">{{marriageHallPlace}}</p>
+            <!-- Replace href with your Google Maps link -->
+            <a class="venue__map" href="https://maps.app.goo.gl/KZQrAywqmPK34QS17" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>
+                Open in Google Maps
+            </a>
+        </article>
+    </section>
+
+    <p class="footer">We can&rsquo;t wait to celebrate with you.</p>
+</main>
+
+<script>
+    // ===== EASY TO EDIT: wedding date (year, month, day). Month is 1-12. =====
+    (function () {
+      var WEDDING_YEAR = 2026, WEDDING_MONTH = 9, WEDDING_DAY = 13;
+
+      var el = document.getElementById("countdown");
+      if (!el) { return; }
+
+      // Compare calendar dates only (ignore the time of day).
+      var wedding = new Date(WEDDING_YEAR, WEDDING_MONTH - 1, WEDDING_DAY);
+      var now = new Date();
+      var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      var days = Math.round((wedding - today) / 86400000);
+
+      var text;
+      if (days > 1) {
+        text = days + " Days to Go";
+      } else if (days === 1) {
+        text = "1 Day to Go";
+      } else if (days === 0) {
+        text = "Today";
+        el.classList.add("is-today");
+      } else {
+        text = "Just Married.";
+        el.classList.add("is-today");
+      }
+      el.textContent = text;
+    })();
+
+    // Auto-reveal the venues with a smooth scroll 1s after load.
+    (function () {
+      var prefersReduced = window.matchMedia
+        && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (prefersReduced) { return; }
+
+      window.setTimeout(function () {
+        // Don't fight the visitor if they've already started scrolling.
+        if (window.scrollY > 4) { return; }
+        var venues = document.querySelector(".venues");
+        if (venues) {
+          venues.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 1000);
+    })();
+</script>
+</body>
+</html>
